@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재난안전 AI 상담 - BlueJob</title>
+    <meta name="description" content="24시간 재난안전 AI 상담 서비스. 화재, 지진, 태풍 등 재난 상황 대응 방법을 AI가 즉시 안내해드립니다.">
+    <meta name="keywords" content="재난안전, AI상담, 화재대응, 지진대응, 응급처치, 재난신고">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="재난안전 AI 상담 - BlueJob">
+    <meta property="og:description" content="24시간 무료 재난안전 AI 상담 서비스">
+    <meta property="og:url" content="https://www.bluejob.co.kr">
+    <meta property="og:type" content="website">
+    
+    <!-- 파비콘 (이모지 사용) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚨</text></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Gradio 임베딩 -->
+    <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.0.0/gradio.js"></script>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="index.html" class="brand-link">
+                        <span class="brand-icon">🚨</span>
+                        <span class="brand-text">BlueJob</span>
+                        <span class="brand-subtitle">재난안전</span>
+                    </a>
+                </div>
+                
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link">홈</a></li>
+                    <li><a href="#chatbot" class="nav-link">AI상담</a></li>
+                    <li><a href="#about" class="nav-link">소개</a></li>
+                    <li><a href="#contact" class="nav-link">연락처</a></li>
+                    <li><a href="#chatbot" class="btn-nav">🤖 상담시작</a></li>
+                </ul>
+                
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>24시간 무료 서비스</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    재난 상황,<br>
+                    <span class="highlight">AI가 즉시 도와드립니다</span>
+                </h1>
+                
+                <p class="hero-description">
+                    화재, 지진, 태풍 등 재난 상황에서 어떻게 행동해야 할지 모르겠다면?<br>
+                    국내 재난안전 법령을 학습한 AI가 24시간 정확한 대응 방법을 안내해드립니다.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">무중단 서비스</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">무료 이용</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">상담 건수</div>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <a href="#chatbot" class="btn-primary">
+                        <i class="fas fa-comments"></i>
+                        지금 상담받기
+                    </a>
+                    <a href="#about" class="btn-secondary">
+                        <i class="fas fa-info-circle"></i>
+                        서비스 소개
+                    </a>
+                </div>
+                
+                <div class="hero-features">
+                    <div class="feature-badge">
+                        <i class="fas fa-fire"></i>
+                        <span>화재대응</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-home"></i>
+                        <span>지진대응</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-cloud-rain"></i>
+                        <span>수해대응</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>응급처치</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI 챗봇 섹션 -->
+    <section id="chatbot" class="chatbot-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🤖 지금 바로 상담받아보세요</h2>
+                <p>질문을 입력하시면 AI가 즉시 정확한 재난 대응 방법을 안내해드립니다</p>
+            </div>
+            
+            <div class="chatbot-container">
+                <!-- HuggingFace Gradio 앱 임베딩 -->
+                <div class="gradio-wrapper">
+                    <gradio-app 
+                        src="https://huggingface.co/spaces/[유저명]/disaster-safety-chatbot"
+                        eager="true"
+                        style="width: 100%; min-height: 650px; border: none; border-radius: 20px;">
+                    </gradio-app>
+                    
+                    <!-- 로딩 상태 -->
+                    <div id="chatbot-loading" class="loading-state">
+                        <div class="loading-animation">
+                            <div class="loading-robot">🤖</div>
+                            <div class="loading-text">
+                                <h3>AI 상담사 준비 중...</h3>
+                                <p>잠시만 기다려주세요</p>
+                            </div>
+                            <div class="loading-bar">
+                                <div class="loading-progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 빠른 질문 카드 -->
+                <div class="quick-questions">
+                    <h3>💡 자주 묻는 질문</h3>
+                    <div class="question-grid">
+                        <button class="question-card" onclick="insertQuestion(this)" data-question="화재가 발생했을 때 어떻게 대피해야 하나요?">
+                            <div class="card-icon">🔥</div>
+                            <div class="card-title">화재 발생 시</div>
+                            <div class="card-subtitle">대피 방법</div>
+                        </button>
+                        
+                        <button class="question-card" onclick="insertQuestion(this)" data-question="지진이 발생하면 어떻게 행동해야 하나요?">
+                            <div class="card-icon">🌍</div>
+                            <div class="card-title">지진 발생 시</div>
+                            <div class="card-subtitle">행동 요령</div>
+                        </button>
+                        
+                        <button class="question-card" onclick="insertQuestion(this)" data-question="태풍 경보 발령 시 주의사항은 무엇인가요?">
+                            <div class="card-icon">🌪️</div>
+                            <div class="card-title">태풍 경보 시</div>
+                            <div class="card-subtitle">주의 사항</div>
+                        </button>
+                        
+                        <button class="question-card" onclick="insertQuestion(this)" data-question="가스 누출 시 응급처치 방법을 알려주세요">
+                            <div class="card-icon">⚠️</div>
+                            <div class="card-title">가스 누출 시</div>
+                            <div class="card-subtitle">응급 처치</div>
+                        </button>
+                        
+                        <button class="question-card" onclick="insertQuestion(this)" data-question="심폐소생술을 어떻게 실시해야 하나요?">
+                            <div class="card-icon">❤️</div>
+                            <div class="card-title">심폐소생술</div>
+                            <div class="card-subtitle">실시 방법</div>
+                        </button>
+                        
+                        <button class="question-card" onclick="insertQuestion(this)" data-question="재난 상황에서 어디에 신고해야 하나요?">
+                            <div class="card-icon">📞</div>
+                            <div class="card-title">재난 신고</div>
+                            <div class="card-subtitle">연락처</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 서비스 소개 섹션 -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>왜 BlueJob 재난안전 AI를 선택해야 할까요?</h2>
+                <p>전문적이고 신뢰할 수 있는 재난안전 정보를 제공합니다</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24시간 무중단 서비스</h3>
+                    <p>언제든지 필요할 때 즉시 상담받을 수 있습니다. 새벽이든 주말이든 AI는 항상 대기하고 있습니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>법령 기반 정확한 정보</h3>
+                    <p>국내 재난안전 관련 법령과 매뉴얼을 학습한 AI가 정확하고 신뢰할 수 있는 정보를 제공합니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>어디서든 쉬운 접근</h3>
+                    <p>스마트폰, 태블릿, PC 어떤 기기에서든 쉽게 접근하여 상담받을 수 있습니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <h3>안전하고 무료</h3>
+                    <p>개인정보 수집 없이 완전히 무료로 이용할 수 있는 안전한 서비스입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 긴급상황 안내 -->
+    <section class="emergency-section">
+        <div class="container">
+            <div class="emergency-box">
+                <div class="emergency-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>⚠️ 실제 응급상황에서는</h3>
+                </div>
+                
+                <div class="emergency-main">
+                    <p>생명이 위급한 상황에서는 AI 상담보다 <strong>즉시 119, 112에 신고</strong>하세요!</p>
+                </div>
+                
+                <div class="emergency-contacts">
+                    <div class="contact-item">
+                        <div class="contact-icon">🚒</div>
+                        <div class="contact-info">
+                            <div class="contact-number">119</div>
+                            <div class="contact-label">화재/구조/구급</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🚔</div>
+                        <div class="contact-info">
+                            <div class="contact-number">112</div>
+                            <div class="contact-label">경찰서</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">⚓</div>
+                        <div class="contact-info">
+                            <div class="contact-number">122</div>
+                            <div class="contact-label">해양사고</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-info">
+                            <div class="contact-number">앱</div>
+                            <div class="contact-label">국민안전신고</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="emergency-disclaimer">
+                    <h4>서비스 이용 안내</h4>
+                    <ul>
+                        <li>이 서비스는 <strong>참고용 정보 제공</strong>을 목적으로 합니다</li>
+                        <li>구체적인 상황에 따라 추가 조치가 필요할 수 있습니다</li>
+                        <li>의료 응급상황 시에는 전문의료진의 판단을 우선하세요</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>문의사항이 있으시나요?</h2>
+                <p>서비스 개선을 위한 의견을 언제든지 보내주세요</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>이메일 문의</h3>
+                        <p>support@bluejob.co.kr</p>
+                        <span>24시간 내 답변</span>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>웹사이트</h3>
+                        <p>www.bluejob.co.kr</p>
+                        <span>24시간 서비스</span>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>운영시간</h3>
+                        <p>24시간 무중단</p>
+                        <span>365일 연중무휴</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="brand-icon">🚨</span>
+                        <span class="brand-text">BlueJob</span>
+                    </div>
+                    <p>AI 기술로 더 안전한 세상을 만들어갑니다</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>서비스</h4>
+                    <ul>
+                        <li><a href="#home">홈</a></li>
+                        <li><a href="#chatbot">AI 상담</a></li>
+                        <li><a href="#about">서비스 소개</a></li>
+                        <li><a href="#contact">문의하기</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-emergency">
+                    <h4>긴급상황 연락처</h4>
+                    <ul>
+                        <li><strong>119</strong> - 화재/구조/구급</li>
+                        <li><strong>112</strong> - 경찰서</li>
+                        <li><strong>122</strong> - 해양사고</li>
+                        <li><strong>국민안전신고앱</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>문의</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@bluejob.co.kr</li>
+                        <li><i class="fas fa-globe"></i> www.bluejob.co.kr</li>
+                        <li><i class="fas fa-clock"></i> 24시간 무중단</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 BlueJob. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 백투탑 버튼 -->
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- 빠른 액션 버튼 -->
+    <div class="quick-actions">
+        <a href="#chatbot" class="quick-btn" title="AI 상담">
+            <i class="fas fa-comments"></i>
+        </a>
+        <a href="tel:119" class="quick-btn emergency" title="119 신고">
+            <i class="fas fa-phone"></i>
+        </a>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
